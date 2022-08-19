@@ -1,33 +1,27 @@
 import Table from 'react-bootstrap/Table';
+import { Bookdata } from '../Pages/Home';
+import React, {useContext} from 'react';
+
 
 function BasicExample() {
+  const data= useContext(Bookdata);
+  console.log(data)
   return (
     <Table striped bordered hover  >
       <thead>
         <tr>
           <th>S No</th>
-          <th>First Name</th>
-          <th>Last Name</th>
-          <th>Username</th>
+          <th>Book name</th>
+          <th>Author</th>
+          <th>Type</th>
         </tr>
       </thead>
       <tbody>
         <tr>
           <td>1</td>
-          <td>Mark</td>
-          <td>Otto</td>
-          <td>@mdo</td>
-        </tr>
-        <tr>
-          <td>2</td>
-          <td>Jacob</td>
-          <td>Thornton</td>
-          <td>@fat</td>
-        </tr>
-        <tr>
-          <td>3</td>
-          <td colSpan={2}>Larry the Bird</td>
-          <td>@twitter</td>
+          <td>{data.book}</td>
+          <td>{data.author} </td>
+          <td>{data.type}</td>
         </tr>
       </tbody>
     </Table>
