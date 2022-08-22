@@ -4,7 +4,7 @@ import Form from 'react-bootstrap/Form';
 import Lottie from 'react-lottie';
 import BasicExample from '../Components/Table1'
 import library_lottie from '../Assets/101342-library.json'
-export const Bookdata = createContext(); 
+export const Bookdata = createContext();
 const Home = () => {
 
     const bookname = useRef("");
@@ -15,10 +15,23 @@ const Home = () => {
     let type = ""
 
 
+
+    // localStorage.setItem("data", JSON.stringify([ 
+    //     {bookname:'harry potter', author:'Jk',type:'heroic'},
+    //     {bookname:'Ghosh bumps', author:'Sahil',type:'Adventure'},
+    //     {bookname:'7 habits ', author:'steven convey',type:'self help'},
+    //     {bookname:'lord of the rings', author:'Tony',type:'heroic'},
+    //     {bookname:'GTA ', author:'Jks',type:'World'},
+    //  ]));
+    // Object -- > JSON
     
-    localStorage.setItem("data", JSON.stringify([ {name:"saikat" }, {name:"karan" } ]));
-// Object -- > JSON
-    console.log( JSON.parse(localStorage.getItem("data")))
+       
+   
+   
+      
+        console.log('problem 1')
+   
+
     // JSON -->Object
 
 
@@ -26,7 +39,7 @@ const Home = () => {
     // const [author, setAuthor]=useState("");
     // const [type, settype]=useState("coding");
 
-    
+
     const [data, setData] = useState({});
     const formsubmit = (e) => {
         if (cooking.current.checked) {
@@ -39,21 +52,20 @@ const Home = () => {
             type = "Adventure"
         }
         e.preventDefault();
-        if(bookname.current.value.length>2 &&author.current.value.length >2 )
-        {setData({
-            book: bookname.current.value,
-            author: author.current.value,
-            type: type
-        })
-        
-    }
-        else{
+        if (bookname.current.value.length > 2 && author.current.value.length > 2) {
+            setData({
+                bookname: bookname.current.value,
+                author: author.current.value,
+                type: type
+            })
+    localStorage.setItem("data", JSON.stringify([...(JSON.parse(localStorage.getItem("data"))), { data }]))
+        }
+        else {
             console.log('enter values')
         }
         e.target.reset();
     }
-
-    
+    const databook = JSON.parse(localStorage.getItem("data"));
     const defaultOptions = {
         loop: true,
         autoplay: true,
@@ -109,7 +121,7 @@ const Home = () => {
                 </div>
 
 
-                <BasicExample  />
+                <BasicExample data={databook} />
 
             </div>
 

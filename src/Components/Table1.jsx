@@ -1,11 +1,10 @@
 import Table from 'react-bootstrap/Table';
-import { Bookdata } from '../Pages/Home';
-import React, {useContext} from 'react';
+
+import React from 'react';
 
 
-function BasicExample() {
-  const data= useContext(Bookdata);
-  console.log(data)
+function BasicExample({data}) {
+  console.log(data);
   return (
     <Table striped bordered hover  >
       <thead>
@@ -17,15 +16,27 @@ function BasicExample() {
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td>1</td>
-          <td>{data.book}</td>
-          <td>{data.author} </td>
-          <td>{data.type}</td>
+        {
+            data.map((val,i)=>{
+              return (
+                <tr>
+          <td>{i+1}</td>
+          <td>{val.data.bookname}</td>
+          <td>{val.data.author} </td>
+          <td>{val.data.type}</td>
         </tr>
+              )
+            })
+        }
       </tbody>
     </Table>
   );
 }
 
-export default BasicExample;
+export default BasicExample; 
+{/* <tr>
+          <td>1</td>
+          <td>{data.book}</td>
+          <td>{data.author} </td>
+          <td>{data.type}</td>
+        </tr> */}
