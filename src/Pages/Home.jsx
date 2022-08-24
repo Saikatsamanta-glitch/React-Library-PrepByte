@@ -6,40 +6,27 @@ import BasicExample from '../Components/Table1'
 import library_lottie from '../Assets/101342-library.json'
 export const Bookdata = createContext();
 const Home = () => {
-
-    const bookname = useRef("");
+    if(JSON.parse(localStorage.getItem('data'))==null ) {
+         //check if data exists
+        console.log('kuch nahi')
+        localStorage.setItem('data', JSON.stringify([]))
+    } else {
+         //if not put atleast [] empty array
+         console.log('kuch hain');
+    }
+    const bookname = useRef("karan");
     const author = useRef("");
     const coding = useRef("Coding");
     const cooking = useRef("Cooking");
     const adventure = useRef("Adventure");
+    const [bookdata, setBookdata] = useState(JSON.parse(localStorage.getItem('data'))); //adding data from localstorage here
     let type = ""
 
 
+    // console.log(JSON.parse(localStorage.getItem('data')));
+    // console.log(bookdata)
 
-    // localStorage.setItem("data", JSON.stringify([ 
-    //     {bookname:'harry potter', author:'Jk',type:'heroic'},
-    //     {bookname:'Ghosh bumps', author:'Sahil',type:'Adventure'},
-    //     {bookname:'7 habits ', author:'steven convey',type:'self help'},
-    //     {bookname:'lord of the rings', author:'Tony',type:'heroic'},
-    //     {bookname:'GTA ', author:'Jks',type:'World'},
-    //  ]));
-    // Object -- > JSON
-    
-       
-   
-   
-      
-        console.log('problem 1')
-   
-
-    // JSON -->Object
-
-
-    // const [bookname,setBookname] = useState("");
-    // const [author, setAuthor]=useState("");
-    // const [type, settype]=useState("coding");
-
-
+    // console.log(bookdata);
     const [data, setData] = useState({});
     const formsubmit = (e) => {
         if (cooking.current.checked) {
@@ -58,14 +45,23 @@ const Home = () => {
                 author: author.current.value,
                 type: type
             })
-    localStorage.setItem("data", JSON.stringify([...(JSON.parse(localStorage.getItem("data"))), { data }]))
+            setBookdata([...bookdata, {
+                bookname: bookname.current.value,
+                author: author.current.value,
+                type: type
+            }])
+            localStorage.setItem('data', JSON.stringify([...JSON.parse(localStorage.getItem('data')), {
+                bookname: bookname.current.value,
+                author: author.current.value,
+                type: type
+            } ]))
         }
         else {
             console.log('enter values')
         }
         e.target.reset();
     }
-    const databook = JSON.parse(localStorage.getItem("data"));
+
     const defaultOptions = {
         loop: true,
         autoplay: true,
@@ -79,7 +75,6 @@ const Home = () => {
             <div className='container'>
                 <h2 className='text-center text-secondary'> PrepBytes Library </h2>
                 <hr />
-
                 <div className='w-100 formshere '>
                     <Form className='w-50' onSubmit={(e) => { formsubmit(e) }}>
                         <Form.Group className="mb-3" controlId="formBasicEmail">
@@ -112,19 +107,16 @@ const Home = () => {
                             Submit
                         </Button>
                     </Form>
-
-                    <Lottie
-                        options={defaultOptions}
-                        height={450}
-                        width={450}
-                    />
+                    <div className="lotties">
+                        <Lottie className="lotties"
+                            options={defaultOptions}
+                            height={450}
+                            width={450}
+                        />
+                    </div>
                 </div>
-
-
-                <BasicExample data={databook} />
-
+                <BasicExample data={bookdata} />
             </div>
-
         </Bookdata.Provider>
     );
 }

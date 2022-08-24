@@ -1,3 +1,10 @@
+@import url('https://cdn-uicons.flaticon.com/uicons-regular-rounded/css/uicons-regular-rounded.css');
+
+
+.delete{
+    cursor:grabbing;
+}
+
 .formshere{
     display: flex !important;
     justify-content: space-between;
